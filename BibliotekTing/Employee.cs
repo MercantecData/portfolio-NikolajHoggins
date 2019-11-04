@@ -23,7 +23,7 @@ namespace BibliotekTing
             {
                 return false;
             }
-            schedule.currentDay = new Day(DateTime.Today, DateTime.Now);
+            //schedule.currentDay = new Day(DateTime.Today, DateTime.Now);
             return true;
         }
 

@@ -12,7 +12,7 @@ namespace BibliotekTing
         public Day(DateTime date, string clockIn)
         {
             this.date = date;
-            this.clockIn = clockIn;
+            //this.clockIn = clockIn;
         }
     }
 }
