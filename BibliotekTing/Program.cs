@@ -6,7 +6,10 @@ namespace BibliotekTing
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var src = DateTime.Now;
+            var hm = new DateTime(src.Year, src.Month, src.Day, src.Hour, src.Minute, 0);
+            Console.WriteLine(DateTime.Now.Day);
+
         }
     }
 }

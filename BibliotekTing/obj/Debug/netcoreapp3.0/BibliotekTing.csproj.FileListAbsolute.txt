@@ -1,0 +1,11 @@
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.exe
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.deps.json
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.runtimeconfig.json
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.runtimeconfig.dev.json
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.dll
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\bin\Debug\netcoreapp3.0\BibliotekTing.pdb
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\obj\Debug\netcoreapp3.0\BibliotekTing.csprojAssemblyReference.cache
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\obj\Debug\netcoreapp3.0\BibliotekTing.AssemblyInfoInputs.cache
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\obj\Debug\netcoreapp3.0\BibliotekTing.AssemblyInfo.cs
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\obj\Debug\netcoreapp3.0\BibliotekTing.dll
+C:\coding\portfolio-NikolajHoggins\BibliotekTing\obj\Debug\netcoreapp3.0\BibliotekTing.pdb
