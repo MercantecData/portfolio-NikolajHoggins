@@ -9,6 +9,13 @@ namespace BibliotekTing
         public Person person;
         public Schedule schedule;
 
+        public Employee(string position, double salary, Person person)
+        {
+            this.position = position;
+            this.salary = salary;
+            this.person = person;
+        }
+
         public bool clockIn() //Function check if day is not currently started, then starts the day with current time.
         {
             if(schedule.currentDay != null)

@@ -4,14 +4,14 @@ namespace BibliotekTing
 {
     public class Schedule
     {
-        public List<Day> daysWorked;
+        public List<Day> days;
         public Day currentDay;
 
         public void saveDay()
         {
             currentDay.hoursWorked = (currentDay.clockOut - currentDay.clockIn).TotalHours;
 
-            daysWorked.Add(currentDay);
+            days.Add(currentDay);
 
             currentDay = null;
         }

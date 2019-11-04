@@ -9,7 +9,7 @@ namespace BibliotekTing
         public DateTime clockOut;
         public double hoursWorked;
 
-        public Day(DateTime date, DateTime clockIn)
+        public Day(DateTime date, string clockIn)
         {
             this.date = date;
             this.clockIn = clockIn;

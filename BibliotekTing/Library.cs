@@ -24,7 +24,7 @@ namespace BibliotekTing
             this.categories = categories;
             this.maxVisitors = maxVisitors;
         }
-        public void closeLibrary() //Kick out all visitors, then make all employees currently at work clock out
+        public void closeLibrary() //Kick out all visitors, then make all employees currently at work clock out, no overtime pay for those suckers
         {
             kickOutVisitors();
             foreach (var employee in employees)
@@ -48,13 +48,57 @@ namespace BibliotekTing
             return true;
         }
 
-        public void kickOutVisitors()
+        public void kickOutVisitors() //Removes all visitors from the library.
         {
             foreach (var visitor in visitors)
             {
                 visitor.visiting = false;
             }
             visitors.Clear();
+        }
+
+        public void getNewBook(Book book)
+        {
+            books.Add(book);
+        }
+
+        //Check if book is loaned out, if not we put it on the visitor book list, add 14 days from now to the due date and makes the book unavailable
+        public void checkOutBook(Book book, Visitor visitor) 
+        {
+            if (!book.available)
+            {
+                return;
+            }
+            book.dueDate = DateTime.Now.AddDays(14);
+            book.currentHolder = visitor;
+            visitor.books.Add(book);
+            book.available = false;
+        }
+
+        //Returns all books that are available (by category if specified) 
+        public List<Book> getAvailBooks(Category searchCategory = null) { 
+            var searchResult = new List<Book>();
+            if(searchCategory == null)
+            {
+                foreach (var book in books)
+                {
+                    if (book.available)
+                    {
+                        searchResult.Add(book);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var book in books)
+                {
+                    if(book.category == searchCategory && book.available)
+                    {
+                        searchResult.Add(book);
+                    } 
+                }
+            }
+            return searchResult;
         }
     }
 }
