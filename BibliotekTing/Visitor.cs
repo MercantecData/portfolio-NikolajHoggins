@@ -2,11 +2,9 @@
 
 namespace BibliotekTing
 {
-    public class Visitor
+    public class Visitor : Person
     {
-        public Person person;
         public bool visiting;
-
         public List<Book> books;
 
     }

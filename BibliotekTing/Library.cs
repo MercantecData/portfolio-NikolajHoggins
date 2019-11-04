@@ -15,14 +15,15 @@ namespace BibliotekTing
         public List<Category> categories;
         public List<Visitor> visitors;
 
-        public Library(string name, string addresse, List<Employee> employees, List<Book> books, List<Category> categories, List<Visitor> guests, int maxVisitors)
+        public Library(string name, string addresse, List<Employee> employees, List<Book> books, int maxVisitors)
         {
             this.name = name;
             this.addresse = addresse;
             this.employees = employees;
             this.books = books;
-            this.categories = categories;
             this.maxVisitors = maxVisitors;
+
+            updateCategories();
         }
         public void closeLibrary() //Kick out all visitors, then make all employees currently at work clock out, no overtime pay for those suckers
         {
@@ -57,11 +58,25 @@ namespace BibliotekTing
             visitors.Clear();
         }
 
+        //Recieves a new book, adds to book list, and refreshes categorie
         public void getNewBook(Book book)
         {
             books.Add(book);
+            updateCategories();
         }
 
+        //Gets every available book, checks the category if it isn't on the category list it is added.
+        public void updateCategories()
+        {
+            categories.Clear();
+            foreach (var item in books)
+            {
+                if (!categories.Contains(item.category) && item.available)
+                {
+                    categories.Add(item.category);
+                }
+            }
+        }
         //Check if book is loaned out, if not we put it on the visitor book list, add 14 days from now to the due date and makes the book unavailable
         public void checkOutBook(Book book, Visitor visitor) 
         {
