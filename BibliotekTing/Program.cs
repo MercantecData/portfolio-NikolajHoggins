@@ -9,6 +9,7 @@ namespace BibliotekTing
         static Library mainLibrary;
         static void Main(string[] args)
         {
+            //Her laver vi nogle værdier vi kan teste programmet med.
             List<Employee> employees = new List<Employee>();
             employees.Add(new Employee("Boss", 60000, "Beau Lehser", 52, "Somewhere inbetween"));
             employees.Add(new Employee("Librarian", 31000, "Vedu HaenBogh", 32, "Kvinde"));
@@ -19,9 +20,8 @@ namespace BibliotekTing
             books.Add(new Book("Harry Potter", 3219, true, new Category("Magi")));
             books.Add(new Book("Mein Kampf", 420, true, new Category("Fiktion")));
 
-
             mainLibrary = new Library("Sct. Nogga's Library", "Wall St. 12th avenue", employees, books, 120);
-
+              
             mainLibrary.addVisitor(new Visitor("jonas jespersen", 52, "kvinde"));
             MainLoop();
         }
@@ -35,11 +35,11 @@ namespace BibliotekTing
                 Console.WriteLine("Hello, welcome to " + mainLibrary.name+"\n");
                 Console.WriteLine("Chose option:");
                 Console.WriteLine("1: Get Library information");
-                Console.WriteLine("2: Change Library information");
-                Console.WriteLine("3: View data:");
-                Console.WriteLine("4: Add data:");
-                Console.WriteLine("5: Change data:");
-                Console.WriteLine("6: Add visitors");
+                Console.WriteLine("2: See all books");
+                Console.WriteLine("3: Search Availablity by book name");
+                Console.WriteLine("4: Add new book");
+                Console.WriteLine("5: Change data [In progress]");
+                Console.WriteLine("6: Add visitor");
                 Console.WriteLine("7: Rent out book");
                 Console.WriteLine("8: See rentet out books");
                 Console.WriteLine("9: Change book due date");
@@ -61,6 +61,7 @@ namespace BibliotekTing
 
             }
         }
+        //Her tager vi userinput og caller den rigtige metode fra den.
         static void HandleChoice(int n)
         {
             switch (n)
@@ -71,7 +72,36 @@ namespace BibliotekTing
                         Console.WriteLine(item);
                     }
                     break;
-
+                case 2:
+                    foreach (var book in mainLibrary.books)
+                    {
+                        if (book.available)
+                        {
+                            Console.WriteLine(book.name + ": På lager I kategori: "+ book.category.name);
+                        }
+                        else
+                        {
+                            Console.WriteLine(book.name + ": Ikke på lager");
+                        }
+                    }
+                    break;
+                case 3:
+                    Console.WriteLine("What book are you looking for?");
+                    string answer = Console.ReadLine();
+                    //find bog der matcher string og se om den er available
+                    foreach (var item in mainLibrary.books)
+                    {
+                        if(item.name.ToLower() == answer.ToLower() && item.available) {
+                            Console.WriteLine("Book, "+item.name+", with "+item.pages+" pages is available");
+                            return;
+                        }
+                            
+                    }
+                    Console.WriteLine("Book, " + answer + ", is not available.");
+                    break;
+                case 4:
+                    AddNewBook();
+                    break;
                 case 6:
                     AddVisitorToLib();
                     break;
@@ -87,25 +117,59 @@ namespace BibliotekTing
                     }
                     break;
                 case 9:
-
+                    ChangeBookDue();
                     break;
                 default:
                     break;
             }
         }
-
+        static void AddNewBook()
+        {
+            Console.WriteLine("What is the book name?");
+            string bookName = Console.ReadLine();
+            Console.WriteLine("What is the books category?");
+            string bookCat = Console.ReadLine();
+            Console.WriteLine("How many pages is is?");
+            string sPageCount = Console.ReadLine();
+            int pageCount = 0;
+            try
+            {
+                pageCount = int.Parse(sPageCount);
+            }
+            catch (Exception)
+            {
+                
+            }
+            mainLibrary.books.Add(new Book(bookName, pageCount, true, new Category(bookCat)));
+        }
         static void ChangeBookDue()
         {
+            bool booksRentet = false;
+            foreach (var item in mainLibrary.books)
+            {
+                if (!item.available)
+                {
+                    booksRentet = true;
+                }
+            }
+            if (!booksRentet) 
+            {
+                Console.WriteLine("NO BOOKS RENTET BLYAT");
+                return;
+            }
+            
+
             Console.WriteLine("Which of the following books do you wish to edit?");
             for (int i = 0; i < mainLibrary.books.Count; i++)
             {
-                if (mainLibrary.books[i].available)
+                if (!mainLibrary.books[i].available)
                 {
-                    return;
+                    Console.WriteLine("[" + i + "] " + mainLibrary.books[i].name);
                 }
-                Console.WriteLine("["+i+"] "+mainLibrary.books[i].name);
+                
             }
 
+            int finalChoice = 0;
             bool bookChoiceDone = false;
             while (!bookChoiceDone)
             {
@@ -118,7 +182,7 @@ namespace BibliotekTing
                     {
                         Console.WriteLine("That was not an option boy.");
                     }
-                    else if (!mainLibrary.books[bookIndex].available)
+                    else if (mainLibrary.books[bookIndex].available)
                     {
                         Console.WriteLine("Choose one of the options please..");
                     }
@@ -126,6 +190,7 @@ namespace BibliotekTing
                     {
                         //Call library method with the book, and visitor
                         bookChoiceDone = true;
+                        finalChoice = bookIndex;
                     }
                 }
                 catch (Exception)
@@ -133,6 +198,28 @@ namespace BibliotekTing
                     Console.WriteLine("Please choose an actual number..");
                 }
             }
+            Book bookToChange = mainLibrary.books[finalChoice];
+            DateTime newTime = bookToChange.dueDate;
+            Console.WriteLine("Current due date: " + bookToChange.dueDate.ToString());
+            Console.WriteLine("How much do you wish to extend or reduce the due date? [in days]");
+            while (true)
+            {
+                string extendBy = Console.ReadLine();
+                try
+                {
+                    int extendInt = int.Parse(extendBy);
+                    newTime = mainLibrary.books[finalChoice].dueDate.AddDays(extendInt);
+                    mainLibrary.changeBookDueDate(bookToChange, newTime);
+                    return;
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Please choose an actual number..");
+                }
+            }
+
+            //Call the library method to change due date
+            
         }
         static void CheckOutBook()
         {
