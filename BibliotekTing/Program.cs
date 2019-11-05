@@ -20,7 +20,7 @@ namespace BibliotekTing
             books.Add(new Book("Harry Potter", 3219, true, new Category("Magi")));
             books.Add(new Book("Mein Kampf", 420, true, new Category("Fiktion")));
 
-            mainLibrary = new Library("Sct. Nogga's Library", "Wall St. 12th avenue", employees, books, 120);
+            mainLibrary = new Library("Scst. Nogga's Library", "Wall St. 12th avenue", employees, books, 120);
               
             mainLibrary.addVisitor(new Visitor("jonas jespersen", 52, "kvinde"));
             MainLoop();
