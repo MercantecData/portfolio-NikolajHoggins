@@ -57,8 +57,7 @@ namespace BibliotekTing
             }
             return false;
         }
-
-
+    
         ///
         ///  - Returnere en bog
         /// 
@@ -86,6 +85,17 @@ namespace BibliotekTing
                 bookOwner.books.Remove(book);
             }
 
+        }
+
+        /// 
+        /// - Ændre lånetiden på en bøger med en bestemt titel
+        /// 
+        public void changeBookDueDate(Book book, DateTime time)
+        {
+            if(!book.available)
+            {
+                book.dueDate = time;
+            }
         }
 
         //Only to be used after book AvailByName
@@ -122,6 +132,29 @@ namespace BibliotekTing
 
         }
 
+        public string[] getLibraryInformation()
+        {
+            string[] returnArray = { 
+                "Name: " + this.name, 
+                "Location: " + this.addresse,
+                "Max visitors: " + this.maxVisitors
+            };
+
+            return returnArray;
+        }
+
+        public List<Book> getRentetOutBooks()
+        {
+            List<Book> rentetBooks = new List<Book>();
+            foreach (var book in books)
+            {
+                if (!book.available)
+                {
+                    rentetBooks.Add(book);
+                }
+            }
+            return rentetBooks;
+        }
         //This is what happens when a visitor enters the library
         public bool addVisitor(Visitor visitor)
         {
