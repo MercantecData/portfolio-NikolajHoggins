@@ -1,0 +1,83 @@
+body{
+    overflow-x: hidden;
+    font-family: 'Noto Sans SC', sans-serif;
+
+}
+html {
+    scroll-behavior: smooth;
+  }
+
+.main{
+    height: 100vh;
+    width: 100vw;
+    background-color: #353b48;
+    overflow: hidden;
+}
+.right{
+    float: right;
+    height: 100vh;
+    width: 50vw;
+    background-image: url("../img/face.jpg");
+    background-size: 100%;
+    background-position: 10px 20px;
+    background-position: top;
+    
+}
+.left{
+    height: 100vh;
+    width: 50vw;
+    float: left;
+    background-color: #353b48;
+    overflow: hidden;
+    -webkit-box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.55);
+    -moz-box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.55);
+    box-shadow: 10px 0px 22px -6px rgba(0,0,0,0.55); 
+}
+.left .container{
+    overflow: hidden;
+    width: 80%;
+    margin: 10%;
+    height: 80%;
+    text-align: right;
+    color: #ecf0f1;
+
+}
+
+.left .container .text{
+    height: 40%;
+}
+
+.left .container .other{
+    height: 50%;
+}
+.other p {
+    margin-top: 40px;
+}
+h1{
+    font-size: 5vh;
+}
+h2{
+    padding-top: 1vh;
+    font-weight: 100;
+    font-size: 3vh;
+    color: #bdc3c7;
+
+}
+.btn{
+    text-decoration: none;
+    padding: 1vh 1vw;
+    color: #353b48;
+    background-color: #ecf0f1;
+    width: 5vw;
+}
+
+.btn:hover{
+    color: #353b48;
+    background-color: #bdc3c7;
+    -webkit-box-shadow: inset 10px 10px 5px -9px rgba(0,0,0,0.43);
+    -moz-box-shadow: inset 10px 10px 5px -9px rgba(0,0,0,0.43);
+    box-shadow: inset 10px 10px 5px -9px rgba(0,0,0,0.43);
+}
+#portfolio{
+ height: 100vh;   
+}
