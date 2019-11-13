@@ -1,41 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:100,300,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+SC:100,300,400&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Nikolaj Hoggins Jacobsen</title>
 </head>
+
 <body>
     <div class="main">
-        
         <div class="right">
+            yeet
         </div>
         <div class="left">
             <div class="container">
                 <div class="text">
-                    <h1 class="name" >Nikolaj Hoggins Jacobsen</h1>
+                    <h1 class="name">Nikolaj Hoggins Jacobsen</h1>
                     <h2>This is all you need to know about me</h2>
                 </div>
                 <div class="other">
-                    <a href="#portfolio" class="btn">
-                        Go to portfolio
+                    <a href="#xtra" class="btn">
+                        Go to more content
                     </a>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna porttitor rhoncus dolor purus non enim. Et tortor at risus viverra adipiscing at in. Platea dictumst vestibulum rhoncus est pellentesque. Porta lorem mollis aliquam ut porttitor leo a diam sollicitudin. Tincidunt eget nullam non nisi est sit amet. Volutpat diam ut venenatis tellus in metus vulputate eu scelerisque. Vitae nunc sed velit dignissim sodales ut eu sem integer. Cursus metus aliquam eleifend mi in nulla posuere sollicitudin. Senectus et netus et malesuada fames ac turpis egestas integer. Ante in nibh mauris cursus mattis molestie a.
-
-                           <br><br> A pellentesque sit amet porttitor eget dolor morbi non arcu. Sed adipiscing diam donec adipiscing tristique risus nec. Etiam sit amet nisl purus in mollis. Morbi enim nunc faucibus a pellentesque sit amet. Id cursus metus aliquam eleifend mi in. Porta nibh venenatis cras sed felis eget velit aliquet sagittis. Faucibus pulvinar elementum integer enim neque volutpat ac tincidunt. Nisl vel pretium lectus quam. Quis auctor elit sed vulputate mi sit. Vulputate mi sit amet mauris. Massa eget egestas purus viverra accumsan. Eu ultrices vitae auctor eu augue ut lectus. Hac habitasse platea dictumst vestibulum. Dictum fusce ut placerat orci. Ut sem nulla pharetra diam sit amet nisl.
-                            
-                            <br><br>Etiam dignissim diam quis enim. Maecenas ultricies mi eget mauris pharetra et ultrices neque ornare. Auctor elit sed vulputate mi sit amet. Et malesuada fames ac turpis egestas sed. Pellentesque id nibh tortor id aliquet lectus proin nibh nisl. Commodo ullamcorper a lacus vestibulum sed arcu. Nisl pretium fusce id velit ut tortor. Nisl condimentum id venenatis a condimentum vitae sapien pellentesque. Dignissim cras tincidunt lobortis feugiat vivamus at augue. Ornare lectus sit amet est. Et magnis dis parturient montes nascetur.</p>
+                    <h3>Information about me:<br /></h3>
+                    <ul>
+                        <li>-Age: 17</li>
+                        <li>-Born: 22/01-2002</li>
+                        <li>-Location: Denmark</li>
+                        <li>-Hobbies: Programming & Skating</li>
+                        <li>
+                            -Place of study:
+                            <a href="https://www.mercantec.dk/" target="_blank">Mercantec Viborg</a>
+                        </li>
+                        <li>
+                            -Employed at:
+                            <a href="https://brickiste.dk" target="_blank">Bricksite Aps</a>
+                        </li>
+                    </ul>
+                    <br />
+                    <h3>
+                        What is
+                        <a target="_blank" href="https://bricksite.dk">Bricksite?</a>
+                    </h3>
+                    <p>
+                        Bricksite is a Content Management System (CMS), which is a system
+                        that allows users without web development experience, to create
+                        beautiful, interactive and response websites. <br /><br />
+                        Our focus is an easily usable system, that gives everyone the
+                        chance to own a personalized website. Another big focus of ours,
+                        is our support, which is rewarded with incredibly good feedback
+                        from our customers.
+                    </p>
+                    <br />
+                    <h3>Why did i decide to become a programmer?</h3>
+                    <p>
+                        I've had this feeling for such a long time, "I want to become a
+                        programmer", I just knew.<br /><br />
+                        When I was young I played a lot of minecraft and with that, got my
+                        first exposure to programming whilst making a server with my
+                        brother. The server had these things called "Plugins", and they
+                        added all these crazy kinds of possibilities to the server, which
+                        I found facinating. And even though I didn't learn a lot of
+                        programming through them, it sparked an interest in me, which
+                        would lead me to where I am today.
+                    </p>
                 </div>
-            </div>       
+            </div>
         </div>
     </div>
-    <div id="portfolio">
-        <h1>noggasdasda</h1>
+    <div id="xtra">
+        <div class="content">
+            <div class="">
+                <!-- - Ændre teksten i en knap når der klikkes på den.-->
+                <script>
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        document.getElementById("changeme").addEventListener("click", function (e) {
+                            this.innerText = "I have changed!";
+                        });
+                    });
+                </script>
+                <button id="changeme">Click to change me!</button>
+            </div>
+            <div class="addNewElements">
+                <script>
+                    document.addEventListener("DOMContentLoaded", function (event) {
+                        /*
+                         - Tilføje nye elementer til document.
+                         - Tilføj elementer på baggrund af et tekst-felt (ligesom en gæstebog).
+                        */
+                        document.getElementById("addElement").addEventListener("click", function (e) {
+                            var ul = document.getElementById("addElementList");
+                            var li = document.createElement("li");
+                            li.appendChild(document.createTextNode(document.getElementById("addElementInput").value));
+                            ul.appendChild(li);
+                        });
+
+                        /*
+                         - Fjerne elementer fra document.
+                         */
+                        document.getElementById("removeElement").addEventListener("click", function (e) {
+                            var ul = document.getElementById("addElementList");
+                            ul.removeChild(ul.getElementsByTagName("li")[0]);
+
+                        });
+                        document.getElementById("beautify").addEventListener("click", function (e) {
+                            var kasse = document.getElementById("spytKasserUd");
+                            while (kasse.firstChild) {
+                                kasse.removeChild(kasse.firstChild);
+                            }
+                            var ul = document.getElementById("addElementList");
+
+                            /*
+                             - Oprette og tilføje en række elementer på baggrund af et array.
+                            */
+                            ul.childNodes.forEach(element => {
+                                if(element.nodeName == "LI"){    
+                                    console.log(element);
+                                    var div = document.getElementById("spytKasserUd");
+                                    var kasse = document.createElement("div");
+                                    kasse.className = "spytKasse";
+                                    kasse.appendChild(document.createTextNode(element.innerText));
+                                    div.appendChild(kasse);
+                                }
+                            });
+
+                        });
+                    });
+                </script>
+                <input id="addElementInput" type="text" value="Type here">
+                <button id="addElement">Add new element!</button>
+                <button id="removeElement">Remove first element</button>
+                <button id="beautify">Lav til flotte kasser</button>
+                <h4>Elements:</h4>
+                <ul id="addElementList">
+                    <li>Elementerino</li>
+                </ul>
+                <div id="spytKasserUd">
+
+                </div>
+            </div>
+
+            
+        </div>
     </div>
-    
 </body>
+
 </html>
