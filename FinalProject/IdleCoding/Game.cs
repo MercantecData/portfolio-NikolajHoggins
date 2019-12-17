@@ -11,10 +11,12 @@ namespace IdleCoding
         CancellationTokenSource cts; //undersøg
         public Task task;
         public double cash;
-        List<Item> items = new List<Item>();
+        public List<Item> items = new List<Item>();
         public List<Item> ownedItems = new List<Item>();
+
         public void Start()
         {
+            cash = 1000;
             Console.WriteLine("Game started");
             AddGameItems();
             purchaseItem(1);
@@ -53,8 +55,8 @@ namespace IdleCoding
 
                     if (sEarn < 0) { sEarn = 0; }
                     Console.WriteLine("Lines/Sec: " + Math.Round(sEarn,2).ToString() + "                     ");
-                    Console.WriteLine("Lines of code: " + Math.Round(cash,2));
-                    
+                    Console.WriteLine("Lines of code: " + Math.Round(cash,2) + "                        ");
+                    Console.WriteLine("Sec: " + sec);
                     Thread.Sleep(runtime);
                     i++;
                 }
@@ -79,7 +81,7 @@ namespace IdleCoding
         private void AddGameItems()
         {
             items.Add(new Item(1, "Python Script", 100, 0.4));
-            items.Add(new Item(2, "Machine Learning", 1000000, 1500));
+            items.Add(new Item(2, "Machine Learning", 1000, 1500));
             items.Add(new Item(3, "AI Super Computer", 20000000, 50000));
         }
 
@@ -87,7 +89,7 @@ namespace IdleCoding
         {
             ownedItems.Add(items.Find(delegate (Item i)
             {
-                return i.itemID == 1;
+                return i.itemID == id;
             }));
         }
 
@@ -102,6 +104,19 @@ namespace IdleCoding
                 }
             }
             return count;
+        }
+
+        public static double getCost(int id, List<Item> items, List<Item> ownedItems)
+        {
+            foreach (Item item in items)
+            {
+                if (item.itemID == id)
+                {
+                    return item.price+(item.price*countItem(id, ownedItems)*0.1);
+                }
+                
+            }
+            return 0;
         }
     }
 }

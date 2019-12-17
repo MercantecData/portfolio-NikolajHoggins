@@ -26,6 +26,7 @@ namespace IdleCoding
         }
         static void checkInput(char input)
         {
+            double itemCost = int.MaxValue;
             switch (input)
             {
                 case 'q':
@@ -33,6 +34,22 @@ namespace IdleCoding
 
                     game.Stop();
                     running = false;
+                    break;
+                case '1':
+                    itemCost = Game.getCost(1, game.items, game.ownedItems);
+                    if(itemCost < game.cash)
+                    {
+                        game.purchaseItem(1);
+                        game.cash -= itemCost;
+                    }
+                    break;
+                case '2':
+                    itemCost = Game.getCost(2, game.items, game.ownedItems);
+                    if (itemCost < game.cash)
+                    {
+                        game.purchaseItem(2);
+                        game.cash -= itemCost;
+                    }
                     break;
                 default:
                     game.cash++;

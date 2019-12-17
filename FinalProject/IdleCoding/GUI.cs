@@ -9,7 +9,7 @@ namespace IdleCoding
         //Quikc GUI function that animates a computer typing for a "coding" effect
         public static void drawPC(int i)
         {
-            Console.SetCursorPosition(0, 0);
+            Console.SetCursorPosition(0,0);
             if (i % 2 == 0)
             {
                 Console.WriteLine("   ._________________.");
@@ -56,10 +56,10 @@ namespace IdleCoding
                 Console.SetCursorPosition(0, currnentLine);
                 Console.Write(item.itemID + ")" + item.itemName);
                 Console.SetCursorPosition(28, currnentLine);
-                Console.WriteLine("Cost: " + item.price + " L/S: " + item.earning);
+                Console.WriteLine("Cost: " + Game.getCost(item.itemID, items, ownedItems) + " L/S: " + item.earning);
                 currnentLine++;
                 Console.SetCursorPosition(0, currnentLine);
-                Console.WriteLine("\tOwned: ("+ owned + ") L/S: " + item.earning+" ("+item.earning*owned+")");
+                Console.WriteLine("\tOwned: ("+ owned + ") L/S: " + item.earning+" ("+Math.Round(item.earning*owned, 2)+")                       ");
                 currnentLine++;
             }
         }
