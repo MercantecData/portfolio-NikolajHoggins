@@ -26,14 +26,17 @@ namespace IdleCoding
         }
         static void checkInput(char input)
         {
-            game.cash++;
-            if (input == 'q')
+            switch (input)
             {
-                Console.WriteLine("\nQuit called from main thread");
+                case 'q':
+                    Console.WriteLine("\nQuit called from main thread");
 
-                game.Stop();
-                running = false;
-
+                    game.Stop();
+                    running = false;
+                    break;
+                default:
+                    game.cash++;
+                    break;
             }
         }
     }
