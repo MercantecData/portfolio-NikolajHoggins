@@ -33,10 +33,10 @@ namespace IdleCoding
             {
 
                 token.ThrowIfCancellationRequested();
-                Console.Clear();
+                Console.SetCursorPosition(0, 0);
                 Console.ForegroundColor = ConsoleColor.Green;
                 GUI.drawPC((int) Math.Round(cash));
-                Console.WriteLine("L/s: " + );
+                Console.WriteLine("L/s: " + "");
                 Console.WriteLine("Lines of code: " + cash);
                 Thread.Sleep(10);
             }

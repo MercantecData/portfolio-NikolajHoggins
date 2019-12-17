@@ -6,6 +6,7 @@ namespace IdleCoding
 {
     class GUI
     {
+        //Quikc GUI function that animates a computer typing for a "coding" effect
         public static void drawPC(int i)
         {
             if (i%2 == 0)
