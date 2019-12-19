@@ -9,6 +9,7 @@ namespace IdleCoding
         //Quikc GUI function that animates a computer typing for a "coding" effect
         public static void drawPC(int i)
         {
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(0,0);
             if (i % 2 == 0)
             {
@@ -48,6 +49,7 @@ namespace IdleCoding
         public static void drawBuyMenu(List<Item> items, List<Item> ownedItems)
         {
             int currnentLine = 16;
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(0, currnentLine);
             foreach (Item item in items)
             {
@@ -62,6 +64,7 @@ namespace IdleCoding
                 Console.WriteLine("\tOwned: ("+ owned + ") L/S: " + item.earning+" ("+Math.Round(item.earning*owned, 2)+")                       ");
                 currnentLine++;
             }
+
         }
     }
 }

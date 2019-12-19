@@ -16,7 +16,7 @@ namespace IdleCoding
             while (running)
             {
                 // check for user input
-                checkInput(Console.ReadKey(true).KeyChar);
+                checkInput(Console.ReadKey(true).Key);
             }
 
             // wait for the task to finish before exiting
@@ -24,36 +24,54 @@ namespace IdleCoding
 
             Console.WriteLine("Hello World!");
         }
-        static void checkInput(char input)
+        static void checkInput(ConsoleKey input)
         {
-            double itemCost = int.MaxValue;
             switch (input)
             {
-                case 'q':
+                case ConsoleKey.Escape:
                     Console.WriteLine("\nQuit called from main thread");
 
                     game.Stop();
                     running = false;
                     break;
-                case '1':
-                    itemCost = Game.getCost(1, game.items, game.ownedItems);
-                    if(itemCost < game.cash)
-                    {
-                        game.purchaseItem(1);
-                        game.cash -= itemCost;
-                    }
+                case ConsoleKey.D1:
+                    sendBuy(game, 1);
                     break;
-                case '2':
-                    itemCost = Game.getCost(2, game.items, game.ownedItems);
-                    if (itemCost < game.cash)
-                    {
-                        game.purchaseItem(2);
-                        game.cash -= itemCost;
-                    }
+                case ConsoleKey.D2:
+                    sendBuy(game, 2);
+                    break;
+                case ConsoleKey.D3:
+                    sendBuy(game, 3);
+                    break;
+                case ConsoleKey.D4:
+                    sendBuy(game, 4);
+                    break;
+                case ConsoleKey.D5:
+                    sendBuy(game, 5);
+                    break;
+                case ConsoleKey.D0:
+                    game.upgradeClick();
+                    break;
+                case ConsoleKey.UpArrow:
+                    game.cash += 100000;
+                    break;
+                case ConsoleKey.DownArrow:
+                    game.cash = 0;
                     break;
                 default:
-                    game.cash++;
+                    game.cash += 1*game.clickMulti;
                     break;
+            }
+        }
+
+        //This function calls the purchaseItem function in the Game object with the id representing the button pressed
+        static void sendBuy(Game game, int id)
+        {
+            double itemCost = Game.getCost(id, game.items, game.ownedItems);
+            if (itemCost < game.cash)
+            {
+                game.purchaseItem(id);
+                game.cash -= itemCost;
             }
         }
     }

@@ -13,13 +13,11 @@ namespace IdleCoding
         public double cash;
         public List<Item> items = new List<Item>();
         public List<Item> ownedItems = new List<Item>();
-
+        public double clickMulti = 1;
         public void Start()
         {
-            cash = 1000;
             Console.WriteLine("Game started");
             AddGameItems();
-            purchaseItem(1);
             if (cts == null)
             {
                 cts = new CancellationTokenSource();
@@ -45,8 +43,7 @@ namespace IdleCoding
                 while (i < 1000 / runtime)
                 {
                     
-                    token.ThrowIfCancellationRequested();
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    //token.ThrowIfCancellationRequested();
                     GUI.drawPC((int)Math.Round(cash));
                     foreach (Item item in ownedItems)
                     {
@@ -56,12 +53,13 @@ namespace IdleCoding
                     if (sEarn < 0) { sEarn = 0; }
                     Console.WriteLine("Lines/Sec: " + Math.Round(sEarn,2).ToString() + "                     ");
                     Console.WriteLine("Lines of code: " + Math.Round(cash,2) + "                        ");
-                    Console.WriteLine("Sec: " + sec);
+                    Console.WriteLine("Click earnings: " + clickMulti);
                     Thread.Sleep(runtime);
                     i++;
                 }
                 sec++;
-                sEarn = cash - currentMoney;
+                if(cash > currentMoney) { sEarn = cash - currentMoney; }
+                
             }
 
             Console.WriteLine("\tLoop ending");
@@ -81,8 +79,10 @@ namespace IdleCoding
         private void AddGameItems()
         {
             items.Add(new Item(1, "Python Script", 100, 0.4));
-            items.Add(new Item(2, "Machine Learning", 1000, 1500));
-            items.Add(new Item(3, "AI Super Computer", 20000000, 50000));
+            items.Add(new Item(2, "C# Knowledge", 2000, 10));
+            items.Add(new Item(3, "App Development", 10000, 210));
+            items.Add(new Item(4, "Machine Learning", 1000000, 1500));
+            items.Add(new Item(5, "AI Super Computer", 20000000, 50000));
         }
 
         public void purchaseItem(int id)
@@ -117,6 +117,19 @@ namespace IdleCoding
                 
             }
             return 0;
+        }
+
+        public void upgradeClick()
+        {
+            if(cash > getMultiCost())
+            {
+                cash -= getMultiCost();
+                clickMulti++;
+            }
+        }
+        public double getMultiCost()
+        {
+            return 5000 * clickMulti;
         }
     }
 }
