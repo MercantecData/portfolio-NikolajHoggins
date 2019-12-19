@@ -15,7 +15,7 @@ namespace IdleCoding
             {
                 Console.WriteLine("   ._________________.");
                 Console.WriteLine("   |.---------------.|");
-                Console.WriteLine("   || x      0      ||");
+                Console.WriteLine("   || x      1      ||");
                 Console.WriteLine("   ||    0     c#   ||");
                 Console.WriteLine("   ||  1      1     ||");
                 Console.WriteLine("   ||     if 1  1   ||");
@@ -45,15 +45,19 @@ namespace IdleCoding
             }
 
         }
-
-        public static void drawBuyMenu(List<Item> items, List<Item> ownedItems)
+        public static String getBit()
+        {
+            String[] bits = new String[] { "1", "0", " ", " ", " ", "[", "}", "{", "/" };
+            Random rnd = new Random();
+            return bits[rnd.Next(0, bits.Length)];
+        }
+        public static void drawBuyMenu(List<Item> items, List<Item> ownedItems, int clickMulti, int clickPrice)
         {
             int currnentLine = 16;
             Console.ForegroundColor = ConsoleColor.Green;
             Console.SetCursorPosition(0, currnentLine);
             foreach (Item item in items)
             {
-                
                 int owned = Game.countItem(item.itemID, ownedItems);
                 Console.SetCursorPosition(0, currnentLine);
                 Console.Write(item.itemID + ")" + item.itemName);
@@ -64,7 +68,10 @@ namespace IdleCoding
                 Console.WriteLine("\tOwned: ("+ owned + ") L/S: " + item.earning+" ("+Math.Round(item.earning*owned, 2)+")                       ");
                 currnentLine++;
             }
-
+            Console.Write("0) 2x Click Upgrade");
+            Console.SetCursorPosition(28, currnentLine);
+            Console.WriteLine("Cost: "+5000*clickMulti + " Click earnings: " + clickMulti);
+            
         }
     }
 }

@@ -13,7 +13,7 @@ namespace IdleCoding
         public double cash;
         public List<Item> items = new List<Item>();
         public List<Item> ownedItems = new List<Item>();
-        public double clickMulti = 1;
+        public int clickMulti = 1;
         public void Start()
         {
             Console.WriteLine("Game started");
@@ -38,7 +38,7 @@ namespace IdleCoding
                 double currentMoney = cash;
                 int i = 0;
                 int runtime = 20;
-                GUI.drawBuyMenu(items, ownedItems);
+                GUI.drawBuyMenu(items, ownedItems, clickMulti, getMultiCost());
 
                 while (i < 1000 / runtime)
                 {
@@ -53,7 +53,6 @@ namespace IdleCoding
                     if (sEarn < 0) { sEarn = 0; }
                     Console.WriteLine("Lines/Sec: " + Math.Round(sEarn,2).ToString() + "                     ");
                     Console.WriteLine("Lines of code: " + Math.Round(cash,2) + "                        ");
-                    Console.WriteLine("Click earnings: " + clickMulti);
                     Thread.Sleep(runtime);
                     i++;
                 }
@@ -78,11 +77,11 @@ namespace IdleCoding
 
         private void AddGameItems()
         {
-            items.Add(new Item(1, "Python Script", 100, 0.4));
-            items.Add(new Item(2, "C# Knowledge", 2000, 10));
-            items.Add(new Item(3, "App Development", 10000, 210));
-            items.Add(new Item(4, "Machine Learning", 1000000, 1500));
-            items.Add(new Item(5, "AI Super Computer", 20000000, 50000));
+            items.Add(new Item(1, "Python Script", 100, 1));
+            items.Add(new Item(2, "C# Knowledge", 2000, 12));
+            items.Add(new Item(3, "App Development", 23000, 190));
+            items.Add(new Item(4, "Machine Learning", 310000, 1500));
+            items.Add(new Item(5, "AI Super Computer", 2150000, 50000));
         }
 
         public void purchaseItem(int id)
@@ -127,7 +126,8 @@ namespace IdleCoding
                 clickMulti++;
             }
         }
-        public double getMultiCost()
+
+        public int getMultiCost()
         {
             return 5000 * clickMulti;
         }

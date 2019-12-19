@@ -8,6 +8,18 @@ namespace IdleCoding
         static Game game;
         static void Main(string[] args)
         {
+            DBController db = new DBController();
+
+            db.Insert();
+
+            Console.ReadLine();
+
+
+
+
+
+
+
             game = new Game();
             game.Start();
 
