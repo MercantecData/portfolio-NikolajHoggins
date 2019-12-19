@@ -182,7 +182,75 @@ namespace IdleCoding
                 return 0;
             }
         }
+        public int loginUser()
+        {
+            Console.Clear();
+            String name = "";
+            String password = "";
+            int uid = 0;
+            //If the username is empty or the user already exists, we want to try again
+            while (name == "" || !checkLogin(name, password) || password == "")
+            {
+                if(name == "")
+                {
+                    Console.Write("Enter username: ");
+                    name = Console.ReadLine();
+                }
+                if(password == "")
+                {
+                    Console.Write("Enter password: ");
+                    password = Console.ReadLine();
+                }
+                if (!checkLogin(name, password))
+                {
+                    Console.WriteLine("Wrong credentials, try again\n");
+                    name = "";
+                    password = "";
+                }
+                else
+                {
+                    uid = getUserId(name);
+                }
+            }
+            return uid;
+        }
 
+        private int getUserId(String username)
+        {
+            
+            string query = "SELECT id FROM users WHERE name = '"+username+"'";
+
+            
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+                int id = 0;
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    id = Convert.ToInt32(dataReader["id"]);
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return id;
+            }
+            else
+            {
+                return 0;
+            }
+            
+        }
         //Checks how many rows contain the username given, if any is found, returns true.
         private bool checkUserName(String username)
         {
@@ -212,6 +280,35 @@ namespace IdleCoding
             }
             return false;
             
+        }
+        private bool checkLogin(String username, String password)
+        {
+            if (username == "")
+            {
+                return false;
+            }
+
+
+            string query = "SELECT COUNT(*) FROM users WHERE name = '" + username + "' AND password = '"+password+"'";
+            //open connection
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                //Execute command and put amount in int
+                int count = int.Parse(cmd.ExecuteScalar() + "");
+                this.CloseConnection();
+                if (count > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            return false;
+
         }
         //Update statement
         public void Update()

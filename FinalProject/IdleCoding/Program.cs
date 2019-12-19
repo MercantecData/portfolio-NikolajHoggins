@@ -8,6 +8,8 @@
 /// 
 /// - Create Save data function
 /// 
+/// - Load data on login
+/// 
 /// - Add quick explanation in start of game
 /// 
 /// - Create start menu animation
@@ -48,7 +50,7 @@ namespace IdleCoding
                     accountAnswer = Console.ReadKey().Key;
                     if (accountAnswer == ConsoleKey.D1)
                     {
-                        //Login functions
+                        userid = db.loginUser();
                         validAnswer = true;
                     }
                     else if(accountAnswer == ConsoleKey.D2)
