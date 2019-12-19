@@ -6,6 +6,38 @@ namespace IdleCoding
 {
     class GUI
     {
+        public static void gameIntro()
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+
+            String[] greetings = { "Welcome to", "A game by Nikolaj Hoggins", "Press enter to continue..." };
+            PrintName();
+            Console.SetCursorPosition(14 , 7);
+            Console.WriteLine(greetings[0]);
+        }
+
+        private static void PrintName() {
+            String[] gameName = {
+                "    ______        __  __                   ______                    __ __                         "
+                , "/      |      /  |/  |                 /      \\                 /  |/  |                    "
+                , "     $$$$$$/   ____$$ |$$ |  ______        /$$$$$$  |  ______    ____$$ |$$/  _______    ______        "
+                , "  $$ |   /    $$ |$$ | /      \\       $$ |  $$/  /      \\  /    $$ |/  |/       \\  /      \\ "
+                , "  $$ |  /$$$$$$$ |$$ |/$$$$$$  |      $$ |      /$$$$$$  |/$$$$$$$ |$$ |$$$$$$$  |/$$$$$$  |"
+                , "  $$ |  $$ |  $$ |$$ |$$    $$ |      $$ |   __ $$ |  $$ |$$ |  $$ |$$ |$$ |  $$ |$$ |  $$ |"
+                , " _$$ |_ $$ \\__$$ |$$ |$$$$$$$$/       $$ \\__/  |$$ \\__$$ |$$ \\__$$ |$$ |$$ |  $$ |$$ \\__$$ |"
+                , "/ $$   |$$    $$ |$$ |$$       |      $$    $$/ $$    $$/ $$    $$ |$$ |$$ |  $$ |$$    $$ |"
+                , "$$$$$$/  $$$$$$$/ $$/  $$$$$$$/        $$$$$$/   $$$$$$/   $$$$$$$/ $$/ $$/   $$/  $$$$$$$ |"
+                , "                                                                                  /  \\__$$ |"
+                , "                                                                                  $$    $$/ "
+                , "                                                                                   $$$$$$/  "};
+            int lineNr = 0;
+            foreach(String line in gameName)
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - line.Length/2, Console.WindowHeight/2-gameName.Length/2+lineNr);
+                Console.WriteLine(line);
+                lineNr++;
+            }
+        }
         //Quikc GUI function that animates a computer typing for a "coding" effect
         public static void drawPC(int i)
         {

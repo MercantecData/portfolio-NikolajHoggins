@@ -1,5 +1,18 @@
 ﻿using System;
 
+/// <summary>
+/// 
+///     ====Big todo====
+/// 
+/// - Re-Write Buy menu
+/// 
+/// - Create Save data function
+/// 
+/// - Add quick explanation in start of game
+/// 
+/// - Create start menu animation
+/// 
+/// </summary>
 namespace IdleCoding
 {
     class Program
@@ -8,18 +21,64 @@ namespace IdleCoding
         static Game game;
         static void Main(string[] args)
         {
-            DBController db = new DBController();
-
-            db.Insert();
-
+            //Prints the titlescreen
+            GUI.gameIntro();
             Console.ReadLine();
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Clear();
+            
+            //Ask if the user want to use the save system, if not it skips all database stuff.
+            Console.WriteLine("Would you like to use saves? [y/n]");
+            ConsoleKeyInfo answer = Console.ReadKey();
+            Console.Clear();
+            if (answer.Key == ConsoleKey.Y || answer.Key == ConsoleKey.Enter)
+            {
+                //Initialises the database, and runs connections settings.
+                DBController db = new DBController();
+                Console.Clear();
+                Console.WriteLine("1) Log in");
+                Console.WriteLine("2) Create user");
+                Console.WriteLine("3) Don't use the system :/");
+                ConsoleKey accountAnswer;
+                bool validAnswer = false;
+                int userid = 0;
+                while (!validAnswer)
+                {
+                    accountAnswer = Console.ReadKey().Key;
+                    if (accountAnswer == ConsoleKey.D1)
+                    {
+                        //Login functions
+                        validAnswer = true;
+                    }
+                    else if(accountAnswer == ConsoleKey.D2)
+                    {
+                        userid = db.CreateUser();
+                        validAnswer = true;
+                    }
+                    else if (accountAnswer == ConsoleKey.D3)
+                    {
+                        validAnswer = true;
+                    }
+                }
+                
+                Console.WriteLine("id: " + userid);
+                Console.ReadLine();
+
+            }
+            else
+            {
+
+            }
 
 
 
 
 
 
+
+
+            Console.Clear();
             game = new Game();
             game.Start();
 
@@ -38,6 +97,7 @@ namespace IdleCoding
         }
         static void checkInput(ConsoleKey input)
         {
+            //To-do: rewrite to less repetetive code by doing a try parse and then using that number directly in sendbuy function.
             switch (input)
             {
                 case ConsoleKey.Escape:
