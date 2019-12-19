@@ -10,6 +10,8 @@
 /// 
 /// - Load data on login
 /// 
+/// - Change database setup default anser to NO
+/// 
 /// - Add quick explanation in start of game
 /// 
 /// - Create start menu animation
