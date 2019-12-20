@@ -76,7 +76,23 @@ namespace IdleCoding
                 cts = null;
             }
         }
-
+        public void loadData(int newcash, int newclickMulti, int[] data)
+        {
+            cash = newcash;
+            clickMulti = newclickMulti;
+            int itemid = 1;
+            foreach (int itemcount in data)
+            {
+                int itemamount = itemcount;
+                while (itemamount > 0)
+                {
+                    purchaseItem(itemid);
+                    itemamount--;
+                }
+                itemid++;
+            }
+            
+        }
         private void AddGameItems()
         {
             items.Add(new Item(1, "Python Script", 100, 1));

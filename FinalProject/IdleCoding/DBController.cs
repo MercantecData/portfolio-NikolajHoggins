@@ -182,12 +182,51 @@ namespace IdleCoding
                 return 0;
             }
         }
+        public int[] GetData(int userid)
+        {
+            string query = "SELECT cash, clickmulti, item1, item2, item3, item4, item5 FROM saves WHERE user_id = "+userid+"";
 
+            //Create a list to store the result
+            int[] data = new int[7];
+
+            //Open connection
+            if (this.OpenConnection() == true)
+            {
+                //Create Command
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                //Create a data reader and Execute the command
+                MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                //Read the data and store them in the list
+                while (dataReader.Read())
+                {
+                    data[0] = int.Parse(dataReader["cash"] + "");
+                    data[1] = int.Parse(dataReader["clickmulti"] + "");
+                    data[2] = int.Parse(dataReader["item1"] + "");
+                    data[3] = int.Parse(dataReader["item2"] + "");
+                    data[4] = int.Parse(dataReader["item3"] + "");
+                    data[5] = int.Parse(dataReader["item4"] + "");
+                    data[6] = int.Parse(dataReader["item5"] + "");
+                }
+
+                //close Data Reader
+                dataReader.Close();
+
+                //close Connection
+                this.CloseConnection();
+
+                //return list to be displayed
+                return data;
+            }
+            else
+            {
+                return data;
+            }
+        }
         public bool CreateSave(int userid, int[] data)
         {
             //To-do: Create password encryption function that will be used when creating user, and when validating password
-
-
+            RemoveOldSave(userid);
             string query = "INSERT INTO saves (user_id, cash, clickmulti, item1, item2, item3, item4, item5) VALUES('" + userid + "', '" + data[0] + "', '" + data[1] + "', '" + data[2] + "', '" + data[3] + "', '" + data[4] + "', '" + data[5] + "', '" + data[6] + "')";
             //open connection
             if (this.OpenConnection() == true)
@@ -209,6 +248,19 @@ namespace IdleCoding
             else
             {
                 return false;
+            }
+        }
+
+        //To-do: change to update quert function instead.
+        public void RemoveOldSave(int userid)
+        {
+            string query = "DELETE FROM saves WHERE user_id="+userid+"";
+
+            if (this.OpenConnection() == true)
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                this.CloseConnection();
             }
         }
 

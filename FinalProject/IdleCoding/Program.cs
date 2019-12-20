@@ -24,6 +24,8 @@ namespace IdleCoding
         static bool running;
         static Game game;
         static DBController db;
+        static int[] itemcounts = new int[5];
+        static bool newUser = true;
         static void Main(string[] args)
         {
             //Prints the titlescreen
@@ -59,6 +61,7 @@ namespace IdleCoding
                     if (accountAnswer == ConsoleKey.D1)
                     {
                         userid = db.loginUser();
+                        newUser = false;
                         validAnswer = true;
                     }
                     else if(accountAnswer == ConsoleKey.D2)
@@ -72,16 +75,23 @@ namespace IdleCoding
                     }
                 }
                 game.userId = userid;
-                Console.WriteLine("id: " + userid);
-                Console.ReadLine();
 
             }
             Console.Clear();
-            Console.WriteLine("You play this game by clicking the letter keys on your keyboards, this action earns you 'lines of code', which is the games currency. Buy menu (will show ingame): Use the buttons 1-5 to buy items, these items automatically generate lines of code. Pressing 0 will buy a clicker upgrade meaning your normal click will give more income pr. click. Lastly, esc will close the game, and save if saves has been enabled");
+            Console.WriteLine("You play this game by clicking the letter keys on your keyboards, this action earns you 'lines of code'.");
+            Console.WriteLine("Lines of Code is the games currency.");
+            Console.WriteLine("\nBuy menu (will show ingame): Use the buttons 1-5 to buy items, these items automatically generate lines of code. \nPressing 0 will buy a clicker upgrade meaning your normal click will give more income pr. click. Lastly, esc will close the game, and save if saves has been enabled");
+            Console.WriteLine("\n\nPress enter to continue...");
             Console.ReadLine();
+            Console.Clear();
             //This goes into the game object and runs the Start funtions, which starts the main loop.
             game.Start();
-
+            if(game.userId != 0 && !newUser)
+            {
+                int[] queryReturn = db.GetData(game.userId);
+                int[] itembuys = { queryReturn[2], queryReturn[3], queryReturn[4], queryReturn[5], queryReturn[6], }; 
+                game.loadData(queryReturn[0], queryReturn[1], itembuys);
+            }
             running = true;
 
             while (running)
@@ -92,8 +102,8 @@ namespace IdleCoding
 
             // wait for the task to finish before exiting
             game.task.Wait();
-
-            Console.WriteLine("Hello World!");
+            Console.Clear();
+            Console.WriteLine("Thanks for playing!");
         }
         static void checkInput(ConsoleKey input)
         {
@@ -106,17 +116,12 @@ namespace IdleCoding
                     
                     game.Stop();
                     running = false;
-                    if (game.useSaves)
+                    if (game.userId != 0)
                     {
                         int[] data = game.getSaveData();
                         db.CreateSave(game.userId, game.getSaveData());
                         Thread.Sleep(1000);
                         Console.Clear();
-                        foreach (int item in data)
-                        {
-                            Console.WriteLine(item);
-                        }
-                        Console.ReadLine();
                     }
                     break;
                 case ConsoleKey.D1:
