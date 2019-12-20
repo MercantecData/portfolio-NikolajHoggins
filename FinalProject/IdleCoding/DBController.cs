@@ -63,9 +63,9 @@ namespace IdleCoding
             connection = new MySqlConnection(connectionString);
             Console.Clear();
             Console.WriteLine("Reset/Set up database? Use this is it's your first time running the program or if you want to reset scores");
-            Console.WriteLine("If your database isn't set up correct it can result in errors. [y/n]");
+            Console.WriteLine("If your database isn't set up correct it can result in errors. [y/n] [default: n]");
             ConsoleKeyInfo answer = Console.ReadKey();
-            if (answer.Key == ConsoleKey.Y || answer.Key == ConsoleKey.Enter)
+            if (answer.Key == ConsoleKey.Y)
             {
                 DatabaseSetup();
             }
@@ -123,7 +123,7 @@ namespace IdleCoding
                 String[] queryList = {"DROP TABLE IF EXISTS saves" ,
                     "DROP TABLE IF EXISTS users",
                     "CREATE TABLE users(id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, name VARCHAR(30) UNIQUE NOT NULL , password VARCHAR(30) NOT NULL)",
-                    "CREATE TABLE saves(save_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id INT UNSIGNED, cash INT NOT NULL, clickmulti INT NOT NULL, item1 INT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)"};
+                    "CREATE TABLE saves(save_id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY, user_id INT UNSIGNED, cash FLOAT NOT NULL, clickmulti INT NOT NULL, item1 INT NOT NULL, item2 INT NOT NULL, item3 INT NOT NULL, item4 INT NOT NULL, item5 INT NOT NULL, FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE)"};
 
                 foreach(String query in queryList)
                 {
@@ -182,6 +182,40 @@ namespace IdleCoding
                 return 0;
             }
         }
+
+        public bool CreateSave(int userid, int[] data)
+        {
+            //To-do: Create password encryption function that will be used when creating user, and when validating password
+
+
+            string query = "INSERT INTO saves (user_id, cash, clickmulti, item1, item2, item3, item4, item5) VALUES('" + userid + "', '" + data[0] + "', '" + data[1] + "', '" + data[2] + "', '" + data[3] + "', '" + data[4] + "', '" + data[5] + "', '" + data[6] + "')";
+            //open connection
+            if (this.OpenConnection() == true)
+            {
+                //create command and assign the query and connection from the constructor
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                Console.WriteLine("Creating save..");
+
+                //Execute command
+                cmd.ExecuteNonQuery();
+
+                long lastInsert = cmd.LastInsertedId;
+                int userID = Convert.ToInt32(lastInsert);
+                //close connection
+                this.CloseConnection();
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Ask for username and password, pass it on to a function that checks/validates the info and returns a bool, if correct, it gets the id from another function.
+        /// </summary>
+        /// <returns>Returns id of the user logged in, this can be stored for use later when we have to save info</returns>
         public int loginUser()
         {
             Console.Clear();
@@ -215,6 +249,7 @@ namespace IdleCoding
             return uid;
         }
 
+        //select the id from the users table where name is the name sent to the function.
         private int getUserId(String username)
         {
             

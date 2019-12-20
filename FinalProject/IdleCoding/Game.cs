@@ -14,6 +14,8 @@ namespace IdleCoding
         public List<Item> items = new List<Item>();
         public List<Item> ownedItems = new List<Item>();
         public int clickMulti = 1;
+        public bool useSaves = false;
+        public int userId = 0;
         public void Start()
         {
             Console.WriteLine("Game started");
@@ -130,6 +132,22 @@ namespace IdleCoding
         public int getMultiCost()
         {
             return 5000 * clickMulti;
+        }
+
+        public int[] getSaveData()
+        {
+            //this array contains cash, click multiplier, and count of the 5 types of items.
+            int[] gameData = { 0,0,0,0,0,0,0};
+            //Cash, rounded to int for less heavy storage.
+            gameData[0] = Convert.ToInt32(Math.Round(cash));
+            //Click multiplier.
+            gameData[1] = clickMulti;
+
+            foreach (Item item in ownedItems)
+            {
+                gameData[item.itemID+1]++;
+            }
+            return gameData;
         }
     }
 }

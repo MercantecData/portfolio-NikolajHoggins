@@ -1,21 +1,21 @@
 ﻿using System;
+using System.Threading;
 
 /// <summary>
 /// 
 ///     ====Big todo====
 /// 
-/// - Re-Write Buy menu
+/// 0 - Re-Write Buy menu
 /// 
-/// - Create Save data function
+/// 5 - check if save exists before saving
 /// 
-/// - Load data on login
+/// 4 - Load data on login
 /// 
-/// - Change database setup default anser to NO
+/// 3 - Add quick explanation in start of game
 /// 
-/// - Add quick explanation in start of game
+/// 1 - Create start menu animation
 /// 
-/// - Create start menu animation
-/// 
+/// 0 - Add time played to save
 /// </summary>
 namespace IdleCoding
 {
@@ -23,23 +23,29 @@ namespace IdleCoding
     {
         static bool running;
         static Game game;
+        static DBController db;
         static void Main(string[] args)
         {
             //Prints the titlescreen
             GUI.gameIntro();
+            //Initialise the game.
+            game = new Game();
             Console.ReadLine();
 
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Clear();
             
             //Ask if the user want to use the save system, if not it skips all database stuff.
-            Console.WriteLine("Would you like to use saves? [y/n]");
+            Console.WriteLine("Would you like to use saves? This function requires a database ready for use [y/n] [default: y]");
             ConsoleKeyInfo answer = Console.ReadKey();
             Console.Clear();
             if (answer.Key == ConsoleKey.Y || answer.Key == ConsoleKey.Enter)
             {
                 //Initialises the database, and runs connections settings.
-                DBController db = new DBController();
+                game.useSaves = true;
+                //In the future i would have initialized the database connection inside the game for easier and more "tidy" access, but it's last moment though. Migrating to game object would take too long.
+                db = new DBController();
+
                 Console.Clear();
                 Console.WriteLine("1) Log in");
                 Console.WriteLine("2) Create user");
@@ -65,25 +71,15 @@ namespace IdleCoding
                         validAnswer = true;
                     }
                 }
-                
+                game.userId = userid;
                 Console.WriteLine("id: " + userid);
                 Console.ReadLine();
 
             }
-            else
-            {
-
-            }
-
-
-
-
-
-
-
-
             Console.Clear();
-            game = new Game();
+            Console.WriteLine("You play this game by clicking the letter keys on your keyboards, this action earns you 'lines of code', which is the games currency. Buy menu (will show ingame): Use the buttons 1-5 to buy items, these items automatically generate lines of code. Pressing 0 will buy a clicker upgrade meaning your normal click will give more income pr. click. Lastly, esc will close the game, and save if saves has been enabled");
+            Console.ReadLine();
+            //This goes into the game object and runs the Start funtions, which starts the main loop.
             game.Start();
 
             running = true;
@@ -106,9 +102,22 @@ namespace IdleCoding
             {
                 case ConsoleKey.Escape:
                     Console.WriteLine("\nQuit called from main thread");
-
+                    
+                    
                     game.Stop();
                     running = false;
+                    if (game.useSaves)
+                    {
+                        int[] data = game.getSaveData();
+                        db.CreateSave(game.userId, game.getSaveData());
+                        Thread.Sleep(1000);
+                        Console.Clear();
+                        foreach (int item in data)
+                        {
+                            Console.WriteLine(item);
+                        }
+                        Console.ReadLine();
+                    }
                     break;
                 case ConsoleKey.D1:
                     sendBuy(game, 1);
