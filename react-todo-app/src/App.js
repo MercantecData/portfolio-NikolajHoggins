@@ -7,7 +7,7 @@ class App extends React.Component {
       {
         id: 1,
         title: 'Take out the trash',
-        completed: true
+        completed: false
       },
       {
         id: 2,
@@ -21,14 +21,28 @@ class App extends React.Component {
       },
     ]
   }
-  markComplete = () =>{
-    console.log('From App.js')
+  markComplete = (id) =>{
+    console.log(id)
+    this.setState({todos: this.state.todos.map((todo, index) => {
+      if(todo.id === id){
+        todo.completed = !todo.completed
+      }
+      return todo;
+    }) });
   }
 
+  delTodo = (id) =>{
+    console.log('ran')
+    this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]});
+  }
   render(){
     return (
       <div className="App">
-        <Todos todos={this.state.todos} markComplete={this.markComplete}/>
+        <Todos 
+          todos={this.state.todos} 
+          markComplete={this.markComplete}
+          delTodo={this.delTodo}
+          />
       </div>
     );
   }
